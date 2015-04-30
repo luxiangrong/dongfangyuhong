@@ -1,0 +1,62 @@
+$icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
+$font-family-sans-serif: "Helvetica Neue",
+Helvetica,
+"Hiragino Sans GB",
+"Hiragino Sans GB W3",
+"Microsoft YaHei",
+Arial,
+sans-serif !default;
+$font-family-serif: Georgia,
+"Times New Roman",
+Times,
+serif !default;
+//** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
+$font-family-monospace: Menlo,
+Monaco,
+Consolas,
+"Courier New",
+monospace !default;
+// bower:scss
+@import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
+// endbower
+
+header {
+  &.top {
+    line-height: 45px;
+    background-color: #db243e;
+    position: relative;
+    text-align: center;
+    .brand {
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      img.logo {
+        width: 38px;
+        height: 31px;
+      }
+    }
+    .game-nav {
+
+      position: absolute;
+      text-align: left;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      .btn-link {
+        font-size: 15px;
+        color: #ffffff;
+        text-decoration: none;
+        &:hover {
+          color: darken(#ffffff, 15%);
+        }
+        .glyphicon {
+          vertical-align: top;
+          font-size: 18px;
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+}

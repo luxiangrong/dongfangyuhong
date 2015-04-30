@@ -1,0 +1,8 @@
+{
+  "name": "dongfangyuhong",
+  "private": true,
+  "dependencies": {
+    "bootstrap-sass-official": "~3.3.4",
+    "modernizr": "~2.8.2"
+  }
+}
