@@ -1,0 +1,136 @@
+<!doctype html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <title>开始游戏</title>
+    <meta name="description" content="开始游戏">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/art-dialog/css/ui-dialog.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+    <!-- build:js scripts/vendor/modernizr.js -->
+    <script src="bower_components/modernizr/modernizr.js"></script>
+    <!-- endbuild -->
+</head>
+
+<body>
+    <!--[if lt IE 10]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <header class="top">
+        <a class="brand" href="#">
+            <img class="logo" alt="Brand" src="images/logo01.png" height="31" width="38">
+        </a>
+        <nav class="game-nav">
+            <button class="btn btn-link" href="#"><i class="glyphicon glyphicon-menu-left"></i>返回</button>
+        </nav>
+    </header>
+    <div class="main-content">
+        <div class="btn-wrap">
+            <a class="btn btn-a">重玩游戏</a>
+        </div>
+        <div class="turntable-wrap">
+            <div class="turntable">
+                <div class="turntable-item turntable-item-1">
+                    <h5>一等奖</h5>
+                    <div class="img-wrap"><img src="images/jiangpin01.png" alt=""></div>
+                </div>
+                <div class="turntable-item turntable-item-2">
+                    <h5>二等奖</h5>
+                    <div class="img-wrap"><img src="images/jiangpin01.png" alt=""></div>
+                </div>
+                <div class="turntable-item turntable-item-3">
+                    <h5>三等奖</h5>
+                    <div class="img-wrap"><img src="images/jiangpin01.png" alt=""></div>
+                </div>
+                <div class="turntable-item turntable-item-4">
+                    <h5>四等奖</h5>
+                    <div class="img-wrap"><img src="images/jiangpin01.png" alt=""></div>
+                </div>
+                <div class="turntable-item turntable-item-5">
+                    <h5>五等奖</h5>
+                    <div class="img-wrap"><img src="images/jiangpin01.png" alt=""></div>
+                </div>
+                <div class="turntable-item turntable-item-6">
+                    <h5>六等奖</h5>
+                    <div class="img-wrap"><img src="images/jiangpin01.png" alt=""></div>
+                </div>
+                <div class="turntable-item turntable-item-7">
+                    <h5>七等奖</h5>
+                    <div class="img-wrap"><img src="images/jiangpin01.png" alt=""></div>
+                </div>
+                <div class="turntable-item turntable-item-8">
+                    <h5>谢谢参与</h5>
+                    <div class="img-wrap"><img src="images/jiangpin01.png" alt=""></div>
+                </div>
+            </div>
+            <div class="turntable-pointer"></div>
+        </div>
+    </div>
+    <footer class="footer">
+        <ul class="nav-bottom">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">走进雨虹</a></li>
+            <li><a href="#">建筑防水</a></li>
+            <li><a href="#">事业群</a></li>
+        </ul>
+        <ul class="nav-bottom">
+            <li><a href="#">媒体中心</a></li>
+            <li><a href="#">社会责任</a></li>
+            <li><a href="#">合作加盟</a></li>
+            <li><a href="#">联系我们</a></li>
+        </ul>
+        <div class="beian">
+            <p>京ICP备06041138</p>
+            <p>京公网安备11010502020411</p>
+        </div>
+    </footer>
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
+    <script src="bower_components/art-dialog/dist/dialog.js"></script>
+    <script src="bower_components/art-dialog/dist/dialog-plus.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:js({app,.tmp}) scripts/main.js -->
+    <script src="scripts/main.js"></script>
+    <!-- endbuild -->
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var winWidth = $(window).width();
+
+        $('.turntable').width(winWidth - 20).height(winWidth - 20);
+
+        $('.turntable-pointer').on('click', function(){
+            //点击抽奖按钮，开始转动转盘，同时向服务器请求获取此处的中奖信息
+            $('.turntable').css('transform', 'rotate(0deg)')
+            $('.turntable').css('-webkit-transform', 'rotate(0deg)')
+            $('.turntable').removeClass('rotating-to-stop');
+            $('.turntable').addClass('rotating');
+            //$.get('');
+            //
+            //模拟1s后获得服务器端中奖结果
+            window.setTimeout(function(){
+                $('.turntable').removeClass('rotating');
+                console.log($('.turntable').css('transform'));
+                // $('.turntable').addClass('rotating-to-stop');
+                // $('.turntable').css('transform', 'rotate(955deg)')
+                $('.turntable').css('-webkit-transform', 'rotate(3800deg)')
+            }, 3000);
+        });
+
+    });
+    </script>
+</body>
+
+</html>

@@ -16,47 +16,388 @@ Monaco,
 Consolas,
 "Courier New",
 monospace !default;
+$font-size-base: 12px !default;
+$body-bg: #efefef;
 // bower:scss
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
+// 
+// 
+$red-1: #db243e;
+//定义动画
+//
+@keyframes card-flip-to-face {
+    0% {
+        @include opacity(0);
+    }
+    50% {
+        @include opacity(0);
+    }
+    51% {
+        @include opacity(1);
+    }
+    100% {
+        @include opacity(1);
+    }
+}
+
+@keyframes card-flip-to-back {
+    0% {
+        @include opacity(1);
+    }
+    50% {
+        @include opacity(1);
+    }
+    51% {
+        @include opacity(0);
+    }
+    100% {
+        @include opacity(0);
+    }
+}
+
+@keyframes rotating {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(350deg);
+    }
+}
+
+.book-page {
+    background: #ffffff url(../images/book-page01.png) center bottom no-repeat;
+    background-size: 100% 6px;
+    padding: 10px 10px 16px 10px;
+    h5 {
+        color: $red-1;
+        font-size: 16px;
+    }
+}
+
+.btn-a {
+    @include button-variant(#865c00, transparent, transparent);
+    background: transparent url(../images/button02.png) no-repeat center center;
+    background-size: 100% 100%;
+    width: 120px;
+    height: 32px;
+    line-height: 32px;
+    padding: 0;
+    font-weight: bold;
+    font-size: 15px;
+    text-shadow: 0 1px 0 #ffd374;
+    border: none;
+    box-shadow: 0 3px 3px 0px rgba(28, 13, 6, 0.7);
+    border-radius: 16px;
+}
 
 header {
-  &.top {
-    line-height: 45px;
-    background-color: #db243e;
-    position: relative;
-    text-align: center;
-    .brand {
-      text-align: center;
-      position: relative;
-      z-index: 2;
-      img.logo {
-        width: 38px;
-        height: 31px;
-      }
+    &.top {
+        line-height: 45px;
+        background-color: $red-1;
+        position: relative;
+        text-align: center;
+        .brand {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            img.logo {
+                width: 38px;
+                height: 31px;
+                margin-bottom: 6px;
+            }
+        }
+        .game-nav {
+            position: absolute;
+            text-align: left;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            .btn-link {
+                font-size: 15px;
+                color: #ffffff;
+                text-decoration: none;
+                &:hover {
+                    color: darken(#ffffff, 15%);
+                }
+                .glyphicon {
+                    vertical-align: top;
+                    font-size: 18px;
+                    margin-right: 5px;
+                }
+            }
+        }
     }
-    .game-nav {
+}
 
-      position: absolute;
-      text-align: left;
-      z-index: 1;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      .btn-link {
-        font-size: 15px;
-        color: #ffffff;
-        text-decoration: none;
-        &:hover {
-          color: darken(#ffffff, 15%);
-        }
-        .glyphicon {
-          vertical-align: top;
-          font-size: 18px;
-          margin-right: 5px;
-        }
-      }
+.banner {
+    img {
+        width: 100%;
     }
-  }
+}
+
+.main-content {
+    padding: 10px;
+    position: relative;
+    z-index: 1;
+    .btn-wrap {
+        text-align: center;
+        .btn-start {
+            background: none;
+            border: none;
+            img {
+                width: 225px;
+                height: 50px;
+            }
+            &:hover {
+                img {
+                    @include opacity(0.8);
+                }
+            }
+        }
+    }
+    .count-down {
+        line-height: 62px;
+        text-align: center;
+        box-shadow: inset 0 0 10px 1px rgba(206, 206, 206, 0.75);
+        background-color: #fff;
+        font-size: 18px;
+        strong.second {
+            width: 30px;
+            height: 30px;
+            border-radius: 3px;
+            background-color: $red-1;
+            text-align: center;
+            color: #ffffff;
+            font-weight: bold;
+            padding: 5px;
+            margin: 0 5px;
+        }
+    }
+    .game-wrap {
+        @include make-row(6px);
+        margin: 10px 0;
+        .card-wrap {
+            @include make-xs-column(3, 6px);
+            margin-top: 6px;
+            .card {
+                cursor: pointer;
+                position: relative;
+                background: url(../images/card_bg01.jpg) no-repeat 50% 50%;
+                background-size: 100% 100%;
+                transition: all 0.8s linear;
+                img {
+                    width: 100%;
+                    &.fg {
+                        transform: rotateY(180deg);
+                    }
+                }
+                &.face {
+                    transform: rotateY(180deg);
+                    img.fg {
+                        @include opacity(1);
+                        animation: card-flip-to-face 0.8s forwards;
+                    }
+                }
+                &.back {
+                    img.fg {
+                        @include opacity(0);
+                        animation: card-flip-to-back 0.8s forwards;
+                    }
+                }
+            }
+        }
+    }
+}
+
+footer {
+    &.footer {
+        ul {
+            &.nav-bottom {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+                @include make-row(0px);
+                text-align: center;
+                li {
+                    @include make-xs-column(3, 0px);
+                    margin-top: 1px;
+                    padding-right: 1px;
+                    &:last-child {
+                        padding-right: 0;
+                    }
+                    a {
+                        line-height: 34px;
+                        display: block;
+                        background-color: $red-1;
+                        color: #ffffff;
+                        font-size: 14px;
+                        &:hover {
+                            text-decoration: none;
+                            color: darken(#ffffff, 10%);
+                        }
+                    }
+                }
+            }
+        }
+        .beian {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            p {
+                text-align: center;
+                font-size: 14px;
+                color: #a2a2a2;
+                margin: 0;
+            }
+        }
+    }
+}
+
+//过关成功后的提示对话框
+.ui-dialog {
+    &.dialog-note {
+        background-color: #e79e00;
+        font-family: $font-family-sans-serif;
+        border: 4px solid #ffffff;
+        border-radius: 12px;
+        box-shadow: inset 0 0 10px 1px rgba(62, 42, 0, 1);
+        .content-wrap {
+            p {
+                color: #ffffff;
+                text-align: center;
+                font-size: 14px;
+                margin-bottom: 0px;
+                strong {
+                    font-size: 18px;
+                    color: $red-1;
+                    margin: 0 5px;
+                }
+                &.note {
+                    color: #ffd374;
+                    font-size: 12px;
+                }
+            }
+            .btn-wrap {
+                text-align: center;
+                margin-top: 18px;
+                margin-bottom: 18px;
+            }
+            .split {
+                height: 0px;
+                border-top: 1px solid #b27a00;
+                border-bottom: 1px solid #ffb310;
+                margin: 10px 0;
+            }
+        }
+    }
+}
+
+.ui-popup-focus {
+    .ui-dialog {
+        &.dialog-note {
+            box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.75), inset 0 0 10px 1px rgba(62, 42, 0, 1);
+        }
+    }
+}
+
+.ui-popup-modal {
+    transform: translateZ(2px);
+    position: fixed !important;
+}
+
+.ui-popup-backdrop {
+    &.note-modal-bg {
+        transform: translateZ(1px);
+        background: url(../images/note-modal-bg.png) no-repeat 50% 50% !important;
+        background-size: 100% 100% !important;
+    }
+}
+
+body.lock-position {
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
+    position: fixed;
+}
+
+//大转盘样式
+.turntable-wrap {
+    overflow: hidden;
+    position: relative;
+    margin-top: 20px;
+    .turntable-pointer {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        background: url(../images/turntable-pointer.png) no-repeat 50% 50%;
+        background-size: 100% 100%;
+    }
+    .turntable {
+        background: url(../images/turntable-bg.png) no-repeat 50% 50%;
+        background-size: 100% 100%;
+        transition: transform 10s cubic-bezier(0,.23,.27,.99);
+        &.rotating {
+            animation: rotating 0.5s infinite linear;
+            animation-fill-mode: forwards;
+        }
+        &.rotating-to-stop {
+            
+        }
+        .turntable-item {
+            position: absolute;
+            top: 0;
+            left: 0px;
+            width: 100%;
+            height: 50%;
+            text-align: center;
+            h5 {
+                font-weight: bold;
+                font-size: 14px;
+                color: #400000;
+                margin-top: 10%;
+                margin-bottom: 15px;
+            }
+            .img-wrap {
+                img {
+                    width: 10%;
+                }
+            }
+            &.turntable-item-1 {
+                transform: rotate(22.5deg);
+                transform-origin: 50% 100%;
+            }
+            &.turntable-item-2 {
+                transform: rotate(67.5deg);
+                transform-origin: 50% 100%;
+            }
+            &.turntable-item-3 {
+                transform: rotate(112.5deg);
+                transform-origin: 50% 100%;
+            }
+            &.turntable-item-4 {
+                transform: rotate(157.5deg);
+                transform-origin: 50% 100%;
+            }
+            &.turntable-item-5 {
+                transform: rotate(202.5deg);
+                transform-origin: 50% 100%;
+            }
+            &.turntable-item-6 {
+                transform: rotate(247.5deg);
+                transform-origin: 50% 100%;
+            }
+            &.turntable-item-7 {
+                transform: rotate(292.5deg);
+                transform-origin: 50% 100%;
+            }
+            &.turntable-item-8 {
+                transform: rotate(337.5deg);
+                transform-origin: 50% 100%;
+            }
+        }
+    }
 }

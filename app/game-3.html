@@ -1,0 +1,159 @@
+<!doctype html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <title>开始游戏</title>
+    <meta name="description" content="开始游戏">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/art-dialog/css/ui-dialog.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+    <!-- build:js scripts/vendor/modernizr.js -->
+    <script src="bower_components/modernizr/modernizr.js"></script>
+    <!-- endbuild -->
+</head>
+
+<body>
+    <!--[if lt IE 10]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <header class="top">
+        <a class="brand" href="#">
+            <img class="logo" alt="Brand" src="images/logo01.png" height="31" width="38">
+        </a>
+        <nav class="game-nav">
+            <button class="btn btn-link" href="#"><i class="glyphicon glyphicon-menu-left"></i>返回</button>
+        </nav>
+    </header>
+    <div class="main-content">
+        <div class="count-down">
+            距离游戏开始还有<strong class="second">10</strong>秒
+        </div>
+        <div class="game-wrap">
+            <div class="card-wrap">
+                <div class="card face"><img src="images/card01.jpg" alt="" class="fg"></div>
+            </div>
+            <div class="card-wrap">
+                <div class="card face"><img src="images/card02.jpg" alt="" class="fg"></div>
+            </div>
+            <div class="card-wrap">
+                <div class="card face"><img src="images/card03.jpg" alt="" class="fg"></div>
+            </div>
+            <div class="card-wrap">
+                <div class="card face"><img src="images/card04.jpg" alt="" class="fg"></div>
+            </div>
+            <div class="card-wrap">
+                <div class="card face"><img src="images/card05.jpg" alt="" class="fg"></div>
+            </div>
+            <div class="card-wrap">
+                <div class="card face"><img src="images/card06.jpg" alt="" class="fg"></div>
+            </div>
+            <div class="card-wrap">
+                <div class="card face"><img src="images/card07.jpg" alt="" class="fg"></div>
+            </div>
+            <div class="card-wrap">
+                <div class="card face"><img src="images/card08.jpg" alt="" class="fg"></div>
+            </div>
+            <div class="card-wrap">
+                <div class="card face"><img src="images/card01.jpg" alt="" class="fg"></div>
+            </div>
+            <div class="card-wrap">
+                <div class="card face"><img src="images/card02.jpg" alt="" class="fg"></div>
+            </div>
+            <div class="card-wrap">
+                <div class="card face"><img src="images/card03.jpg" alt="" class="fg"></div>
+            </div>
+            <div class="card-wrap">
+                <div class="card face"><img src="images/card04.jpg" alt="" class="fg"></div>
+            </div>
+            <div class="card-wrap">
+                <div class="card face"><img src="images/card05.jpg" alt="" class="fg"></div>
+            </div>
+            <div class="card-wrap">
+                <div class="card face"><img src="images/card06.jpg" alt="" class="fg"></div>
+            </div>
+            <div class="card-wrap">
+                <div class="card face"><img src="images/card07.jpg" alt="" class="fg"></div>
+            </div>
+            <div class="card-wrap">
+                <div class="card face"><img src="images/card08.jpg" alt="" class="fg"></div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <ul class="nav-bottom">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">走进雨虹</a></li>
+            <li><a href="#">建筑防水</a></li>
+            <li><a href="#">事业群</a></li>
+        </ul>
+        <ul class="nav-bottom">
+            <li><a href="#">媒体中心</a></li>
+            <li><a href="#">社会责任</a></li>
+            <li><a href="#">合作加盟</a></li>
+            <li><a href="#">联系我们</a></li>
+        </ul>
+        <div class="beian">
+            <p>京ICP备06041138</p>
+            <p>京公网安备11010502020411</p>
+        </div>
+    </footer>
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
+    <script src="bower_components/art-dialog/dist/dialog.js"></script>
+    <script src="bower_components/art-dialog/dist/dialog-plus.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:js({app,.tmp}) scripts/main.js -->
+    <script src="scripts/main.js"></script>
+    <!-- endbuild -->
+    <script type="text/template" id="dialog-note">
+        <div class="content-wrap">
+            <p>恭喜</p>
+            <p>你已经获取了<strong>2</strong>次抽奖机会</p>
+            <div class="btn-wrap">
+                <a class="btn btn-a">继续挑战</a>
+            </div>
+            <div class="btn-wrap">
+                <a class="btn btn-a">马上抽奖</a>
+            </div>
+            <div class="split"></div>
+            <p class="note">继续挑战，若挑战不成功，将丧失所有抽奖机会。</p>
+        </div>
+    </script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+    	var winWidth = $(window).width();
+        var elem = $($("#dialog-note").html());
+
+        document.addEventListener('touchmove', function(event) {
+            //判断条件,条件成立才阻止背景页面滚动,其他情况不会再影响到页面滚动
+            if(!$(".note-modal-bg").is(":hidden")){
+                event.preventDefault();
+            }
+        })
+
+        dialog({
+            content: elem,
+            skin: 'dialog-note',
+            id: 'EF893L',
+            fixed: true
+        }).showModal().width(winWidth * 0.6);
+        // $('body').addClass('lock-position');
+        $('.ui-popup-backdrop').addClass('note-modal-bg');
+    });
+    </script>
+</body>
+
+</html>
