@@ -17,5 +17,12 @@
   "strict": true,
   "trailing": true,
   "smarttabs": true,
-  "jquery": true
+  "jquery": true,
+  "globals": {
+      "$": false,
+      "jquery": false,
+      "_": false,
+      "dialog": false,
+      "Backbone": false
+  }
 }

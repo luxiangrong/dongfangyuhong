@@ -13,6 +13,7 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/art-dialog/css/ui-dialog.css" />
     <!-- endbower -->
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1430626321_2635965.css" />
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
@@ -36,7 +37,7 @@
     </header>
     <div class="main-content">
         <div class="btn-wrap">
-            <a class="btn btn-a">重玩游戏</a>
+            <a class="btn btn-a">我要挑战</a>
         </div>
         <div class="turntable-wrap">
             <div class="turntable">
@@ -77,7 +78,6 @@
         </div>
         <h5>抽奖规则：</h5>
         <p>您还有次抽奖机会您还有次抽奖机会您还有次抽奖机会您还有次抽奖机会您还有次抽奖机会您还有次抽奖机会您还有次抽奖机会您还有次抽奖机会您还有次抽奖机会您还有次抽奖机会您还有次抽奖机会您还有次抽奖机会您还有次抽奖机</p>
-
     </div>
     <footer class="footer">
         <ul class="nav-bottom">
@@ -111,13 +111,80 @@
     <!-- build:js({app,.tmp}) scripts/main.js -->
     <script src="scripts/main.js"></script>
     <!-- endbuild -->
+    <script type="text/template" id="dialog-winning">
+        <div class="content-wrap">
+            <h3>恭喜您，获得<strong>1</strong>等奖<br/><small>请填写领奖信息，若不填视作放弃</small></h3>
+            <div class="split"></div>
+                <div class="form-group">
+                    <label class="sr-only" for="name">姓名</label>
+                    <input type="text" class="form-control" id="name" placeholder="姓名" />
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="phone">电话</label>
+                    <input type="tel" class="form-control" id="phone" placeholder="电话" />
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="address">地址</label>
+                    <input type="text" class="form-control" id="address" placeholder="地址" />
+                </div>
+                <button type="submit" class="btn btn-block btn-b" id="btnSubmit">提  交</button>
+        </div>
+    </script>
+    <script type="text/template" id="dialog-submit">
+    	<div class="content-wrap">
+    		<h3>提交成功</h3>
+    		<div class="btn-wrap">
+    			<button class="btn  btn-b" id="btnClose">关  闭</button>
+    		</div>
+    		<div class="share">
+    			分享到：<i class="iconfont icon-weixin01"></i><i class="iconfont icon-qqweibo"></i><i class="iconfont icon-weibo"></i>
+    		</div>
+    	</div>
+    </script>
     <script type="text/javascript">
     $(document).ready(function() {
         var winWidth = $(window).width();
+        var elem = $($("#dialog-winning").html());
+
+        document.addEventListener('touchmove', function(event) {
+            //判断条件,条件成立才阻止背景页面滚动,其他情况不会再影响到页面滚动
+            if (!$(".note-modal-bg").is(":hidden")) {
+                event.preventDefault();
+            }
+        })
+
+        var dialogForm = dialog({
+            content: elem,
+            skin: 'dialog-b',
+            id: '',
+            fixed: true
+        });
+        dialogForm.showModal().width(winWidth * 0.7);
+        // $('body').addClass('lock-position');
+
+
+		//点击提交        
+        $('#btnSubmit').on('click', function(){
+
+        	//成功后触发下面的代码
+        	//
+        	dialogForm.close().remove();
+        	var elem = $($("#dialog-submit").html());
+        	var dialogFormResult = dialog({
+	            content: elem,
+	            skin: 'dialog-b',
+	            id: '',
+	            fixed: true
+	        })
+	        dialogFormResult.showModal().width(winWidth * 0.7);
+
+	        $('#btnClose').on('click', function(){
+	        	dialogFormResult.close().remove();
+	        });
+        });
 
         $('.turntable').width(winWidth - 20).height(winWidth - 20);
-
-        $('.turntable-pointer').on('click', function(){
+        $('.turntable-pointer').on('click', function() {
             //点击抽奖按钮，开始转动转盘，同时向服务器请求获取此处的中奖信息
             $('.turntable').css('transform', 'rotate(0deg)')
             $('.turntable').css('-webkit-transform', 'rotate(0deg)')
@@ -126,7 +193,7 @@
             //$.get('');
             //
             //模拟1s后获得服务器端中奖结果
-            window.setTimeout(function(){
+            window.setTimeout(function() {
                 $('.turntable').removeClass('rotating');
                 console.log($('.turntable').css('transform'));
                 // $('.turntable').addClass('rotating-to-stop');
@@ -134,7 +201,6 @@
                 $('.turntable').css('-webkit-transform', 'rotate(3800deg)')
             }, 3000);
         });
-
     });
     </script>
 </body>

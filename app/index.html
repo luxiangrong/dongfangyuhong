@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>dongfangyuhong</title>
+    <title>东方雨虹-游戏</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <link rel="shortcut icon" href="/favicon.ico">
@@ -12,6 +12,7 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/art-dialog/css/ui-dialog.css" />
     <!-- endbower -->
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1430626321_2635965.css" />
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
@@ -25,42 +26,234 @@
     <!--[if lt IE 10]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-    <div class="container">
-        <div class="header">
-            <ul class="nav nav-pills pull-right">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-            <h3 class="text-muted">dongfangyuhong</h3>
+    <header class="top">
+        <a class="brand" href="#">
+            <img class="logo" alt="Brand" src="images/logo01.png" height="31" width="38">
+        </a>
+        <nav class="game-nav">
+            <button class="btn btn-link" href="#"><i class="glyphicon glyphicon-menu-left"></i>返回</button>
+        </nav>
+    </header>
+
+    <div class="main-content" id="content">
+        <div class="banner"><img src="images/banner01.jpg" alt=""></div>
+
+        <div class="book-page">
+            <p>我不是都敏俊，可我心里也有一个“千颂伊”；</p>
+            <p>我不会让时间静止，但专注施工时整个世界都静下来了；</p>
+            <p>我不会在地球上生活400年，但愿我手中的建筑能屹立百年；</p>
+            <p>我是东方雨虹“星级”防水工——来自星星的你。</p>
         </div>
-        <div class="jumbotron">
-            <h1>'Allo, 'Allo!</h1>
-            <p class="lead">Always a pleasure scaffolding your apps.</p>
-            <p><a class="btn btn-lg btn-success" href="#">Splendid! <span class="glyphicon glyphicon-ok"></span></a></p>
+        <div class="btn-wrap">
+            <a href="#start" id="start-flip-game" class="btn btn-start"><img src="images/button01.png" alt=""></a>
         </div>
-        <div class="row marketing">
-            <div class="col-lg-6">
-                <h4>HTML5 Boilerplate</h4>
-                <p>HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.</p>
-                <h4>Sass</h4>
-                <p>Sass is a mature, stable, and powerful professional grade CSS extension language.</p>
-                <h4>Bootstrap</h4>
-                <p>Sleek, intuitive, and powerful mobile first front-end framework for faster and easier web development.</p>
-                <h4>Modernizr</h4>
-                <p>Modernizr is an open-source JavaScript library that helps you build the next generation of HTML5 and CSS3-powered websites.</p>
-            </div>
-        </div>
-        <div class="footer">
-            <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
+        <div class="book-page">
+            <h5>游戏规则</h5>
+            <p>1、凭记忆选择相同的人物或物品，在2分钟内全部选对，即可获得1次抽奖机会。</p>
+            <p>2、答对后可选择累计抽奖机会或是直接抽奖，累计满5次抽奖机会系统将赠送1次抽奖机会。一单打错，所有抽奖机会将清零</p>
+            <p>3、受网速及游戏终端性能限制，游戏可能发生错误。由此引发的损失，东方雨虹不承担责任。本游戏最终解释权归东方雨虹所有。</p>
         </div>
     </div>
+    <footer class="footer">
+        <ul class="nav-bottom">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">走进雨虹</a></li>
+            <li><a href="#">建筑防水</a></li>
+            <li><a href="#">事业群</a></li>
+        </ul>
+        <ul class="nav-bottom">
+            <li><a href="#">媒体中心</a></li>
+            <li><a href="#">社会责任</a></li>
+            <li><a href="#">合作加盟</a></li>
+            <li><a href="#">联系我们</a></li>
+        </ul>
+        <div class="beian">
+            <p>京ICP备06041138</p>
+            <p>京公网安备11010502020411</p>
+        </div>
+    </footer>
+    
+    <!-- 首页的视图模板 -->
+    <script type="text/template" id="template-home">
+        <div class="banner"><img src="images/banner01.jpg" alt=""></div>
+
+        <div class="book-page">
+            <p>我不是都敏俊，可我心里也有一个“千颂伊”；</p>
+            <p>我不会让时间静止，但专注施工时整个世界都静下来了；</p>
+            <p>我不会在地球上生活400年，但愿我手中的建筑能屹立百年；</p>
+            <p>我是东方雨虹“星级”防水工——来自星星的你。</p>
+        </div>
+        <div class="btn-wrap">
+            <a href="#flipcard" id="start-flip-game" class="btn btn-start"><img src="images/button01.png" alt=""></a>
+        </div>
+        <div class="book-page">
+            <h5>游戏规则</h5>
+            <p>1、凭记忆选择相同的人物或物品，在2分钟内全部选对，即可获得1次抽奖机会。</p>
+            <p>2、答对后可选择累计抽奖机会或是直接抽奖，累计满5次抽奖机会系统将赠送1次抽奖机会。一单打错，所有抽奖机会将清零</p>
+            <p>3、受网速及游戏终端性能限制，游戏可能发生错误。由此引发的损失，东方雨虹不承担责任。本游戏最终解释权归东方雨虹所有。</p>
+        </div>
+    </script>
+
+    <!-- 翻牌游戏页面的视图模板 -->
+    <script type="text/template" id="template-flip-game">
+        <div class="count-down">
+            距离游戏开始还有<strong class="second">10</strong>秒
+        </div>
+        <div class="game-wrap">
+            <div class="card-wrap">
+                <div class="card face"><img src="images/card01.jpg" alt="" class="fg"></div>
+            </div>
+            <div class="card-wrap">
+                <div class="card face"><img src="images/card02.jpg" alt="" class="fg"></div>
+            </div>
+            <div class="card-wrap">
+                <div class="card face"><img src="images/card03.jpg" alt="" class="fg"></div>
+            </div>
+            <div class="card-wrap">
+                <div class="card face"><img src="images/card04.jpg" alt="" class="fg"></div>
+            </div>
+            <div class="card-wrap">
+                <div class="card face"><img src="images/card05.jpg" alt="" class="fg"></div>
+            </div>
+            <div class="card-wrap">
+                <div class="card face"><img src="images/card06.jpg" alt="" class="fg"></div>
+            </div>
+            <div class="card-wrap">
+                <div class="card face"><img src="images/card07.jpg" alt="" class="fg"></div>
+            </div>
+            <div class="card-wrap">
+                <div class="card face"><img src="images/card08.jpg" alt="" class="fg"></div>
+            </div>
+            <div class="card-wrap">
+                <div class="card face"><img src="images/card01.jpg" alt="" class="fg"></div>
+            </div>
+            <div class="card-wrap">
+                <div class="card face"><img src="images/card02.jpg" alt="" class="fg"></div>
+            </div>
+            <div class="card-wrap">
+                <div class="card face"><img src="images/card03.jpg" alt="" class="fg"></div>
+            </div>
+            <div class="card-wrap">
+                <div class="card face"><img src="images/card04.jpg" alt="" class="fg"></div>
+            </div>
+            <div class="card-wrap">
+                <div class="card face"><img src="images/card05.jpg" alt="" class="fg"></div>
+            </div>
+            <div class="card-wrap">
+                <div class="card face"><img src="images/card06.jpg" alt="" class="fg"></div>
+            </div>
+            <div class="card-wrap">
+                <div class="card face"><img src="images/card07.jpg" alt="" class="fg"></div>
+            </div>
+            <div class="card-wrap">
+                <div class="card face"><img src="images/card08.jpg" alt="" class="fg"></div>
+            </div>
+        </div>
+    </script>
+
+    <!-- 翻牌游戏成功后的弹出框视图模板 -->
+    <script type="text/template" id="dialog-note">
+        <div class="content-wrap">
+            <p>恭喜</p>
+            <p>你已经获取了<strong>2</strong>次抽奖机会</p>
+            <div class="btn-wrap">
+                <a class="btn btn-a" href="#flipcard" id="btn-flipcard">继续挑战</a>
+            </div>
+            <div class="btn-wrap">
+                <a class="btn btn-a" href="#turntable" id="btn-turntable">马上抽奖</a>
+            </div>
+            <div class="split"></div>
+            <p class="note">继续挑战，若挑战不成功，将丧失所有抽奖机会。</p>
+        </div>
+    </script>
+
+    <!-- 大转盘视图模板 -->
+    <script type="text/template" id="template-turntable">
+        <div class="btn-wrap">
+            <a class="btn btn-a" href="#flipcard">重玩游戏</a>
+        </div>
+        <div class="turntable-wrap">
+            <div class="turntable">
+                <div class="turntable-item ">
+                    <h5>一等奖</h5>
+                    <div class="img-wrap"><img src="images/jiangpin01.png" alt=""></div>
+                </div>
+                <div class="turntable-item ">
+                    <h5>二等奖</h5>
+                    <div class="img-wrap"><img src="images/jiangpin01.png" alt=""></div>
+                </div>
+                <div class="turntable-item ">
+                    <h5>三等奖</h5>
+                    <div class="img-wrap"><img src="images/jiangpin01.png" alt=""></div>
+                </div>
+                <div class="turntable-item ">
+                    <h5>四等奖</h5>
+                    <div class="img-wrap"><img src="images/jiangpin01.png" alt=""></div>
+                </div>
+                <div class="turntable-item ">
+                    <h5>五等奖</h5>
+                    <div class="img-wrap"><img src="images/jiangpin01.png" alt=""></div>
+                </div>
+                <div class="turntable-item ">
+                    <h5>六等奖</h5>
+                    <div class="img-wrap"><img src="images/jiangpin01.png" alt=""></div>
+                </div>
+                <div class="turntable-item ">
+                    <h5>七等奖</h5>
+                    <div class="img-wrap"><img src="images/jiangpin01.png" alt=""></div>
+                </div>
+                <div class="turntable-item ">
+                    <h5>谢谢参与</h5>
+                    <div class="img-wrap"><img src="images/jiangpin01.png" alt=""></div>
+                </div>
+            </div>
+            <div class="turntable-pointer"></div>
+        </div>
+        <h5>抽奖规则：</h5>
+        <p>您还有次抽奖机会您还有次抽奖机会您还有次抽奖机会您还有次抽奖机会您还有次抽奖机会您还有次抽奖机会您还有次抽奖机会您还有次抽奖机会您还有次抽奖机会您还有次抽奖机会您还有次抽奖机会您还有次抽奖机会您还有次抽奖机</p>
+    </script>
+
+    <script type="text/template" id="dialog-winning">
+        <div class="content-wrap">
+            <h3>恭喜您，获得<span class="prize"><strong>1</strong>等奖<span><br/><small>请填写领奖信息，若不填视作放弃</small></h3>
+            <div class="split"></div>
+                <div class="form-group">
+                    <label class="sr-only" for="name">姓名</label>
+                    <input type="text" class="form-control" id="name" placeholder="姓名" />
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="phone">电话</label>
+                    <input type="tel" class="form-control" id="phone" placeholder="电话" />
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="address">地址</label>
+                    <input type="text" class="form-control" id="address" placeholder="地址" />
+                </div>
+                <button type="submit" class="btn btn-block btn-b" id="btnSubmit">提  交</button>
+        </div>
+    </script>
+    <script type="text/template" id="dialog-submit">
+        <div class="content-wrap">
+            <h3>提交成功</h3>
+            <div class="btn-wrap">
+                <button class="btn  btn-b" id="btnClose">关  闭</button>
+            </div>
+            <div class="share">
+                分享到：<i class="iconfont icon-weixin01"></i><i class="iconfont icon-qqweibo"></i><i class="iconfont icon-weibo"></i>
+            </div>
+        </div>
+    </script>
+    
+
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
     <script src="bower_components/art-dialog/dist/dialog.js"></script>
     <script src="bower_components/art-dialog/dist/dialog-plus.js"></script>
+    <script src="bower_components/page/page.js"></script>
+    <script src="bower_components/underscore/underscore.js"></script>
+    <script src="bower_components/backbone/backbone.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:js({app,.tmp}) scripts/main.js -->
