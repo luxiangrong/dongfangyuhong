@@ -15,7 +15,7 @@
             var _this = this;
             var seconds = 3;
             var cards = this.cards.concat(this.cards);
-            cards = _.shuffle(cards);
+            // cards = _.shuffle(cards);
 
             var gameView = $($(selector).html());
 
@@ -40,18 +40,60 @@
             var _this = this;
 
             $('#content').find('.count-down').html('游戏开始');
-            $('#content').find('.card').toggleClass('face back');
+
+            $('#content').find('.card').velocity({ 
+                rotateY: "+=180deg"
+            },{ duration: 500 , easing: 'linear'});
+            window.setTimeout(function(){
+                $('#content').find('.card img').css('opacity', 0);
+            }, 250);
+
+            //$('#content').find('.card').toggleClass('face back');
 
             var currentFliped = null,
                 lastFliped = null,
                 disabled = false;
 
+            var flip = function(card, force) {
+                var state = card.data('flip-state') || 'back';
+                if(state === 'back') {
+                    card.velocity({ 
+                        rotateY: "0deg"
+                    },{ duration: 500, easing: 'linear' });
+                    window.setTimeout(function(){
+                        card.find('img').css('opacity', 1);
+                    }, 250);
+                    card.data('flip-state', 'face');
+                } else {
+                    if(force === true) {
+                        card.velocity({ 
+                            rotateY: "180deg"
+                        },{ duration: 500, easing: 'linear' });
+                        window.setTimeout(function(){
+                            card.find('img').css('opacity', 0);
+                        }, 250);
+                        card.data('flip-state', 'back');
+                    }
+                }
+            }
+
+            var clear = function(card) {
+                card.addClass('clear');
+                card.velocity({ 
+                    opacity: 0,
+                    scaleX: 1.2,
+                    scaleY: 1.2
+                },{ duration: 1000});
+            }
+
             $('#content').find('.card').on('click.flip', function() {
                 //当翻到的两个牌不一样时，不允许再翻其他牌
-                if (disabled) {
+                if (disabled || $(this).data('flip-state') === 'face') {
                     return;
                 }
-                $(this).toggleClass('face back');
+                flip($(this));
+
+                // $(this).toggleClass('face back');
                 currentFliped = $(this);
 
                 if (_.isNull(lastFliped)) {
@@ -61,20 +103,24 @@
                     if (lastFliped.find('img.fg').attr('src') === currentFliped.find('img.fg').attr('src')) {
                         currentFliped.off('click.flip');
                         lastFliped.off('click.flip');
-                        currentFliped.addClass('clear');
-                        lastFliped.addClass('clear');
-                        currentFliped = null;
-                        lastFliped = null;
-                        if ($('#content').find('.card.clear').length === 16) {
-                            window.setTimeout(function() {
-                                _this.success();
-                            }, 1000);
-                        }
+                        disabled = true;
+                        window.setTimeout(function() {
+                            clear(currentFliped);
+                            clear(lastFliped);
+                            currentFliped = null;
+                            lastFliped = null;
+                            disabled = false;
+                            if ($('#content').find('.card.clear').length === 16) {
+                                window.setTimeout(function() {
+                                    _this.success();
+                                }, 1000);
+                            }
+                        }, 500);
                     } else {
                         disabled = true;
                         window.setTimeout(function() {
-                            currentFliped.toggleClass('face back');
-                            lastFliped.toggleClass('face back');
+                            flip(currentFliped, true);
+                            flip(lastFliped, true);
                             currentFliped = null;
                             lastFliped = null;
                             disabled = false;
@@ -126,63 +172,68 @@
             });
 
             var winWidth = $(window).width();
+            $('#content').find('.turntable').height(winWidth);
+            winWidth = $(window).width();
             $('#content').find('.turntable').width(winWidth - 20).height(winWidth - 20);
 
             $('#content').find('.turntable-pointer').on('click', function() {
                 //点击抽奖按钮，开始转动转盘，同时向服务器请求获取此处的中奖信息
-                $('#content').find('.turntable').removeClass('transition');
-                $('#content').find('.turntable').css('transform', 'rotateZ(0deg)')
-                $('#content').find('.turntable').css('-webkit-transform', 'rotateZ(0deg)')
-                    // $('#content').find('.turntable').addClass('rotating');
-                    //$.get('');
-                    //
-                    //模拟1s后获得服务器端中奖结果
+                 $('#content').find('.turntable').velocity({
+                    translateZ: 0, //启用硬件加速
+                    rotateZ: '360deg'
+                 },{
+                    loop: true,
+                    duration: 1000,
+                    easing: 'linear'
+                 });
+                
+                //模拟1s后获得服务器端中奖结果
                 window.setTimeout(function() {
-                    $('#content').find('.turntable').removeClass('rotating');
+                    $('#content').find('.turntable').velocity('stop');
                     $('#content').find('.turntable').css('transform', 'rotateZ(0deg)')
-                    $('#content').find('.turntable').css('-webkit-transform', 'rotateZ(0deg)')
-                        //中奖结果以奖品id返回
-                        //此处模拟最终结果，这里的id与初始化时奖品key一致
+                    //中奖结果以奖品id返回
+                    //此处模拟最终结果，这里的id与初始化时奖品key一致
                     var resultId = _.sample([1, 2, 3, 4, 5, 6, 7, 8]);
 
                     var deg = _.random(_this.prizes[resultId].degRange[0] + 10, _this.prizes[resultId].degRange[1] - 10) + 1800;
-                    $('#content').find('.turntable').addClass('transition');
-                    // $('.turntable').addClass('rotating-to-stop');
-                    $('#content').find('.turntable').css('transform', 'rotateZ(' + deg + 'deg)')
-                    $('#content').find('.turntable').css('-webkit-transform', 'rotateZ(' + deg + 'deg)')
-                    $('#content').find('.turntable').one('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd',
-                        function() {
+                    $('#content').find('.turntable').velocity({
+                        translateZ: 0, //启用硬件加速
+                        rotateZ: deg + 'deg'
+                    },{
+                        duration: 10000,
+                        easing: [0, .23, .27, .99],
+                        complete: function(){
                             var elem = $($("#dialog-winning").html());
                             elem.find('h3 .prize').html(_this.prizes[resultId].label);
                             var dialogForm = dialog({
-					            content: elem,
-					            skin: 'dialog-b',
-					            id: '',
-					            fixed: true
-					        });
-					        dialogForm.showModal().width(winWidth * 0.7);
+                                content: elem,
+                                skin: 'dialog-b',
+                                id: '',
+                                fixed: true
+                            });
+                            dialogForm.showModal().width(winWidth * 0.7);
 
-					        //点击提交        
-					        elem.find('#btnSubmit').on('click', function(){
+                            //点击提交        
+                            elem.find('#btnSubmit').on('click', function(){
 
-					        	//成功后触发下面的代码
-					        	//
-					        	dialogForm.close().remove();
-					        	var elem = $($("#dialog-submit").html());
-					        	var dialogFormResult = dialog({
-						            content: elem,
-						            skin: 'dialog-b',
-						            id: '',
-						            fixed: true
-						        })
-						        dialogFormResult.showModal().width(winWidth * 0.7);
+                                //成功后触发下面的代码
+                                dialogForm.close().remove();
+                                var elem = $($("#dialog-submit").html());
+                                var dialogFormResult = dialog({
+                                    content: elem,
+                                    skin: 'dialog-b',
+                                    id: '',
+                                    fixed: true
+                                })
+                                dialogFormResult.showModal().width(winWidth * 0.7);
 
-						        elem.find('#btnClose').on('click', function(){
-						        	dialogFormResult.close().remove();
-						        });
-					        });
-                        });
-                }, 500);
+                                elem.find('#btnClose').on('click', function(){
+                                    dialogFormResult.close().remove();
+                                });
+                            });
+                        }
+                    })
+                }, 1000);
 
 
             });

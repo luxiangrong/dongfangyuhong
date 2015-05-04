@@ -5,8 +5,8 @@
     "bootstrap-sass-official": "~3.3.4",
     "modernizr": "~2.8.2",
     "art-dialog": "~6.0.4",
-    "page": "~1.6.3",
     "underscore": "~1.8.3",
-    "backbone": "~1.1.2"
+    "backbone": "~1.1.2",
+    "velocity": "~1.2.2"
   }
 }

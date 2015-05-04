@@ -216,28 +216,28 @@ header {
                 position: relative;
                 background: url(../images/card_bg01.jpg) no-repeat 50% 50%;
                 background-size: 100% 100%;
-                transition: all $card-flip-duration linear;
+                // transition: transform $card-flip-duration linear;
                 img {
                     width: 100%;
                     &.fg {
-                        transform: rotateY(180deg);
+                        // transform: rotateY(180deg);
                     }
                 }
                 &.face {
-                    transform: rotateY(180deg);
+                    // transform: rotateY(180deg);
                     img.fg {
-                        @include opacity(1);
-                        animation: card-flip-to-face $card-flip-duration forwards;
+                        // @include opacity(1);
+                        // animation: card-flip-to-face $card-flip-duration forwards;
                     }
                 }
                 &.back {
                     img.fg {
-                        @include opacity(0);
-                        animation: card-flip-to-back $card-flip-duration forwards;
+                        // @include opacity(0);
+                        // animation: card-flip-to-back $card-flip-duration forwards;
                     }
                 }
                 &.clear {
-                    animation: clear 1s $card-flip-duration forwards;
+                    // animation: clear 1s forwards;
                 }
             }
         }
@@ -441,11 +441,12 @@ body.lock-position {
     .turntable {
         background: url(../images/turntable-bg.png) no-repeat 50% 50%;
         background-size: 100% 100%;
+        margin: 0 auto;
         &.rotating {
-            animation: rotating 0.5s infinite linear;
+            // animation: rotating 0.5s infinite linear;
         }
         &.transition {
-            transition: transform 10s cubic-bezier(0, .23, .27, .99);
+            // transition: transform 10s cubic-bezier(0, .23, .27, .99);
         }
         &.rotating-to-stop {}
         .turntable-item {
