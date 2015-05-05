@@ -2,6 +2,10 @@
 (function($) {
     var router;
 
+    //现在获得的可以抽奖的次数，在进入页面时可以通过xhr请求获取，或者从页面上的隐藏域中获取初始值。
+    var aviableLotteryTimes = 0;
+    // 翻拍游戏过关次数
+    var clearMissionsCount = 0;
     /**
      * 翻牌游戏
      * @param {[type]} cards [初始化卡片的图片数组]
@@ -131,8 +135,11 @@
             });
         },
         success: function() {
+            clearMissionsCount += 1;
+
             var winWidth = $(window).width();
             var elem = $($('#dialog-note').html());
+            elem.find('#lottery-times').text(Number(aviableLotteryTimes) + clearMissionsCount * 2);
             var noteDialog = dialog({
                 content: elem,
                 skin: 'dialog-a',
@@ -145,8 +152,13 @@
                 noteDialog.close().remove();
                 Backbone.history.loadUrl(Backbone.history.fragment);
             });
-            elem.find('#btn-turntable').on('click', function() {
+
+            //点击大转盘后，计算到目前为止获得的抽奖次数，必要的话向服务器发送请求，将值保存到服务器端。
+            elem.find('#btn-turntable').on('click', function(e) {
+                e.preventDefault();
+                aviableLotteryTimes += clearMissionsCount * 2;
                 noteDialog.close().remove();
+                router.navigate('turntable', {trigger: true});
             });
         }
     };
@@ -177,6 +189,17 @@
             $('#content').find('.turntable').width(winWidth - 20).height(winWidth - 20);
 
             $('#content').find('.turntable-pointer').on('click', function() {
+                //判断剩余的抽奖次数
+                if(aviableLotteryTimes == 0) {
+                    dialogAlert('不能抽奖了，请继续玩翻牌游戏');
+                    return;
+                }
+
+                if($(this).data('rotating') === true) {
+                    return;
+                }
+
+                $(this).data('rotating', true);
                 //点击抽奖按钮，开始转动转盘，同时向服务器请求获取此处的中奖信息
                  $('#content').find('.turntable').velocity({
                     translateZ: 0, //启用硬件加速
@@ -203,6 +226,8 @@
                         duration: 10000,
                         easing: [0, .23, .27, .99],
                         complete: function(){
+                            $(this).data('rotating', false);
+
                             var elem = $($("#dialog-winning").html());
                             elem.find('h3 .prize').html(_this.prizes[resultId].label);
                             var dialogForm = dialog({
@@ -239,6 +264,22 @@
             });
         }
     };
+
+    function dialogAlert(content) {
+        var winWidth = $(window).width();
+        var elem = $($("#dialog-alert").html());
+        elem.find('p.content').html(content);
+        var d = dialog({
+            content: elem,
+            skin: 'dialog-b',
+            id: '',
+            fixed: true
+        });
+        d.showModal().width(winWidth * 0.7);
+        elem.find('#btnClose').on('click', function(){
+            d.close().remove();
+        });
+    }
 
     $(document).ready(function() {
         $('.card').on('click', function() {
