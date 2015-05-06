@@ -3,7 +3,7 @@
     var router;
 
     //现在获得的可以抽奖的次数，在进入页面时可以通过xhr请求获取，或者从页面上的隐藏域中获取初始值。
-    var aviableLotteryTimes = 0;
+    var aviableLotteryTimes = 2;
     // 翻拍游戏过关次数
     var clearMissionsCount = 0;
     /**
@@ -189,17 +189,23 @@
             $('#content').find('.turntable').width(winWidth - 20).height(winWidth - 20);
 
             $('#content').find('.turntable-pointer').on('click', function() {
+                var turntablePointer = $(this);
+
+                if(turntablePointer.data('rotating') === true) {
+                    return;
+                }
+
                 //判断剩余的抽奖次数
-                if(aviableLotteryTimes == 0) {
+                if(aviableLotteryTimes <= 0) {
                     dialogAlert('不能抽奖了，请继续玩翻牌游戏');
                     return;
                 }
 
-                if($(this).data('rotating') === true) {
-                    return;
-                }
-
-                $(this).data('rotating', true);
+                turntablePointer.data('rotating', true);
+                $('#content').find('.turntable').velocity({
+                    translateZ: 0, //启用硬件加速
+                    rotateZ: '0'
+                },{duration: 0});
                 //点击抽奖按钮，开始转动转盘，同时向服务器请求获取此处的中奖信息
                  $('#content').find('.turntable').velocity({
                     translateZ: 0, //启用硬件加速
@@ -218,6 +224,8 @@
                     //此处模拟最终结果，这里的id与初始化时奖品key一致
                     var resultId = _.sample([1, 2, 3, 4, 5, 6, 7, 8]);
 
+                    aviableLotteryTimes -= 1;
+
                     var deg = _.random(_this.prizes[resultId].degRange[0] + 10, _this.prizes[resultId].degRange[1] - 10) + 1800;
                     $('#content').find('.turntable').velocity({
                         translateZ: 0, //启用硬件加速
@@ -226,7 +234,7 @@
                         duration: 10000,
                         easing: [0, .23, .27, .99],
                         complete: function(){
-                            $(this).data('rotating', false);
+                            turntablePointer.data('rotating', false);
 
                             var elem = $($("#dialog-winning").html());
                             elem.find('h3 .prize').html(_this.prizes[resultId].label);
