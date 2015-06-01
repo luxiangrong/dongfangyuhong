@@ -251,6 +251,7 @@
 
                                 //成功后触发下面的代码
                                 dialogForm.close().remove();
+                                $('#content-form').remove();
                                 var elem = $($("#dialog-submit").html());
                                 var dialogFormResult = dialog({
                                     content: elem,
